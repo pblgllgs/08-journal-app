@@ -8,5 +8,5 @@ export const types = {
     uiRemoveError: '[UI] remove error',
 
     uiStartLoading: '[UI] Start loading',
-    uiFinishLoading: '[UI] Finish loading'
+    uiFinishLoading: '[UI] Finish loading',
 }
