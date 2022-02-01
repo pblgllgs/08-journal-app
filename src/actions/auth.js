@@ -5,13 +5,23 @@ import {
     signInWithPopup,
     createUserWithEmailAndPassword,
     updateProfile,
+    signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { finishLoading, startLoading } from './ui';
 
 export const startLoginEmailPassword = (email, password) => {
     return (dispatch) => {
-        setTimeout(() => {
-            dispatch(login(123, 'pedro'));
-        }, 3500);
+        const auth = getAuth();
+        dispatch(startLoading());
+        signInWithEmailAndPassword(auth, email, password)
+            .then(({ user }) => {
+                dispatch(login(user.uid, user.displayName));
+                dispatch(finishLoading());
+            })
+            .catch((err) => {
+                console.log(err);
+                dispatch(finishLoading());
+            });
     };
 };
 
@@ -19,14 +29,13 @@ export const startRegisterWithEmailPasswordName = (email, password, name) => {
     return (dispatch) => {
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password)
-        .then(
-            async ({ user }) => {
-                await updateProfile(user, {displayName: name} );
+            .then(async ({ user }) => {
+                await updateProfile(user, { displayName: name });
                 dispatch(login(user.uid, user.displayName));
-            }
-        ).catch((err) => {
-            console.log(err);
-        })
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 };
 
