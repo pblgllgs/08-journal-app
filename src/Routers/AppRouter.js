@@ -4,8 +4,11 @@ import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { login } from '../actions/auth';
+import { LoginScreen } from '../components/auth/LoginScreen';
 import { JournalScreen } from '../components/journal/JournalScreen';
 import { AuthRouter } from './AuthRouter';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
 export const AppRouter = () => {
     const dispatch = useDispatch();
@@ -20,7 +23,7 @@ export const AppRouter = () => {
             if (user?.uid) {
                 dispatch(login(user.uid, user.displayName));
                 setIsLoggedIn(true);
-            }else{
+            } else {
                 setIsLoggedIn(false);
             }
 
@@ -40,12 +43,18 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Switch>
-                    <Route path="/auth">
-                        <AuthRouter />
-                    </Route>
-                    <Route exact path="/">
-                        <JournalScreen />
-                    </Route>
+                    <PublicRoute
+                        path="/auth"
+                        component={AuthRouter}
+                        isAuthenticated={isLoggedIn}
+                    />
+                    <PrivateRoute
+                        exact
+                        isAuthenticated={isLoggedIn}
+                        path="/"
+                        component={JournalScreen}
+                    />
+
                     <Redirect to="/auth/login" />
                 </Switch>
             </div>
