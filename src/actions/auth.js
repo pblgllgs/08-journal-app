@@ -1,4 +1,5 @@
 import { types } from '../types/types';
+import Swal from 'sweetalert2';
 import { googleAuthProvider } from '../firebase/firebase-config';
 import {
     getAuth,
@@ -18,10 +19,18 @@ export const startLoginEmailPassword = (email, password) => {
             .then(({ user }) => {
                 dispatch(login(user.uid, user.displayName));
                 dispatch(finishLoading());
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Bienvenido ${user.displayName}`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
             })
             .catch((err) => {
                 console.log(err);
                 dispatch(finishLoading());
+                Swal.fire('Error', 'Error al iniciar sesión!', 'error');
             });
     };
 };
@@ -36,6 +45,7 @@ export const startRegisterWithEmailPasswordName = (email, password, name) => {
             })
             .catch((err) => {
                 console.log(err);
+                Swal.fire('Error', 'Error al iniciar sesión!', 'error');
             });
     };
 };
@@ -64,6 +74,13 @@ export const startLogout = () => {
         const auth = getAuth();
         await signOut(auth);
         dispatch(logout());
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `Sesión terminada`,
+            showConfirmButton: false,
+            timer: 2000,
+        });
     };
 };
 
