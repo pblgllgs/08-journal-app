@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { login } from '../actions/auth';
+import { setNotes } from '../actions/notes';
 import { JournalScreen } from '../components/journal/JournalScreen';
+import { loadNotes } from '../helpers/loadNotes';
 import { AuthRouter } from './AuthRouter';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
@@ -18,10 +20,14 @@ export const AppRouter = () => {
 
     useEffect(() => {
         const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user?.uid) {
                 dispatch(login(user.uid, user.displayName));
                 setIsLoggedIn(true);
+
+                const notes = await loadNotes(user.uid);
+
+                dispatch(setNotes(notes));
             } else {
                 setIsLoggedIn(false);
             }
