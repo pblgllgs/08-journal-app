@@ -36,14 +36,14 @@ export const NoteScreen = () => {
                     placeholder="Some  awesome title"
                     className="notes__title-input"
                     autoComplete="off"
-                    name='title'
+                    name="title"
                     value={title}
                     onChange={handleInputchange}
                 />
                 <textarea
                     placeholder="What happened today"
                     className="notes__textarea"
-                    name='body'
+                    name="body"
                     value={body}
                     onChange={handleInputchange}
                 ></textarea>
