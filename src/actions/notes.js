@@ -1,6 +1,7 @@
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import Swal from 'sweetalert2';
 import { db } from '../firebase/firebase-config';
+import { fileUpload } from '../helpers/fileUpload';
 import { loadNotes } from '../helpers/loadNotes';
 import { types } from '../types/types';
 
@@ -56,7 +57,6 @@ export const startSaveNote = (note) => {
             await updateDoc(update, noteToFirestore);
             dispatch(refreshNote(note.id, noteToFirestore));
             Swal.fire('Guardado', note.body, 'success');
-            
         } catch (error) {
             Swal.fire('Error', console.log(error), 'error');
         }
@@ -73,3 +73,12 @@ export const refreshNote = (id, note) => ({
         },
     },
 });
+
+export const startUploading = (file) => {
+    return async (dispatch, getState) => {
+        const { active: activeNote } = getState().notes;
+
+        const fileUrl = await fileUpload(file);
+        console.log(fileUrl);
+    };
+};
