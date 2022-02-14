@@ -10,6 +10,7 @@ import {
     signOut,
 } from 'firebase/auth';
 import { finishLoading, startLoading } from './ui';
+import { noteLogout } from './notes';
 
 export const startLoginEmailPassword = (email, password) => {
     return (dispatch) => {
@@ -74,6 +75,7 @@ export const startLogout = () => {
         const auth = getAuth();
         await signOut(auth);
         dispatch(logout());
+        dispatch(noteLogout());
         Swal.fire({
             position: 'top-end',
             icon: 'success',
