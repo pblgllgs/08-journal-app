@@ -12,8 +12,8 @@ export const LoginScreen = () => {
 
     //valor inicial
     const initialForm = {
-        email: 'pablo@gmail.com',
-        password: '123456',
+        email: '',
+        password: '',
     };
     //iniciamos el custom hook
     const [formValues, handleInputchange] = useForm(initialForm);
