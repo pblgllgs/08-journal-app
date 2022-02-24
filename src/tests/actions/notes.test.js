@@ -59,8 +59,7 @@ describe('pruebas en notes/actions', () => {
     test('debe de cargar las notas startLoadingNotes', async () => {
         await store.dispatch(startLoadingNotes('test123'));
         const actions = store.getActions();
-        console.log(actions[0].payload);
-
+        
         expect(actions[0]).toEqual({
             type: types.notesLoad,
             payload: expect.any(Array),
