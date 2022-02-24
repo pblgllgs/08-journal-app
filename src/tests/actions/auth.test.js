@@ -7,7 +7,6 @@ import {
     startLoginEmailPassword,
     startLogout,
 } from '../../actions/auth';
-import { ActionCodeOperation } from 'firebase/auth';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -65,9 +64,7 @@ describe('Pruebas en auth/actions', () => {
         await store.dispatch(startLoginEmailPassword(email, password));
 
         const actions = store.getActions();
-
-        console.log(actions)
-
+        
         expect(actions[0]).toEqual({
             type: types.uiStartLoading,
         });
