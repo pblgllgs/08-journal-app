@@ -16,10 +16,6 @@ jest.mock('../../actions/auth', () => ({
     login: jest.fn(),
 }));
 
-jest.mock('sweetalert2', () => ({
-    fire: jest.fn(),
-}));
-
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
