@@ -28,6 +28,10 @@ const initState = {
         loading: false,
         msgError: null,
     },
+    notes: {
+        active: null,
+        notes: [],
+    },
 };
 
 let store = mockStore(initState);
@@ -62,6 +66,6 @@ describe('Pruebas en <LoginScreen />', () => {
     //         preventDefault() {},
     //     });
 
-    //     expect(startLoginEmailPassword).toHaveBeenLastCalledWith('', '');
+    //     expect(startLoginEmailPassword).toHaveBeenLastCalledWith("", "");
     // });
 });

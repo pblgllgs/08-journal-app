@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 
 import '@testing-library/jest-dom';
 import { RegisterScreen } from '../../../components/auth/RegisterScreen';
+import { types } from '../../../types/types';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -16,6 +17,10 @@ const initState = {
     ui: {
         loading: false,
         msgError: null,
+    },
+    notes: {
+        active: null,
+        notes: [],
     },
 };
 
