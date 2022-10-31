@@ -30,7 +30,7 @@ const firebaseConfig = {
 //     const app = initializeApp(firebaseConfig);
 // }
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 // Initialize Firebase
 // eslint-disable-next-line no-unused-vars
